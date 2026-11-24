@@ -47,7 +47,7 @@ public class Etudiant
     {
         if (n is < 0 or > 20)
         {
-            throw new ArgumentOutOfRangeException(nameof(n), "La note doit être comprise entre 0 et 20.");
+            throw new ArgumentOutOfRangeException(nameof(n), "La note doit etre entre 0 et 20");
         }
 
         _notes.Add(n);

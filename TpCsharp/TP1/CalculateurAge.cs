@@ -1,3 +1,5 @@
+namespace TP1;
+
 public static class CalculateurAge
 {
     public static void Lancer()
@@ -25,3 +27,4 @@ public static class CalculateurAge
         }
     }
 }
+

@@ -1,3 +1,5 @@
+namespace TP1;
+
 public static class GestionNotes
 {
     public static void Lancer()
