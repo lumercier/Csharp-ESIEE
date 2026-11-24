@@ -222,20 +222,6 @@ var releve = notes
 
     Console.WriteLine($"\n Inscrits sans note : {string.Join(", ", sansNoteWhere.Select(i => $"{i.Prenom} {i.Nom}"))}");
 
-
-    // 4. Index prénom -> notes avec ToLookup
-    ILookup<string, Note> parPrenom = notes.ToLookup(n => n.Prenom);
-
-    Console.WriteLine("\n Notes de Grace (ToLookup) :");
-    foreach (var n in parPrenom["Grace"])
-    {
-        Console.WriteLine($"  {n.Matiere,-7} : {n.Valeur:F2}");
-    }
-
-    Console.WriteLine($"   Notes d'un prénom absent (\"Margaret\") : {parPrenom["Margaret"].Count()} élément(s)");
-
-    Console.WriteLine("\n=== SelectMany ===");
-
 // Liste des bulletins
     List<Bulletin> bulletins = notes
         .GroupBy(n => n.Prenom)
@@ -248,11 +234,11 @@ var releve = notes
         Console.WriteLine($"  {b.Prenom,-8} : {string.Join(", ", b.Valeurs.Select(v => $"{v:F2}"))}");
     }
 
-    // Toutes les valeurs avec SelectMany
+// Toutes les valeurs avec SelectMany
     IEnumerable<double> toutesLesValeurs = bulletins.SelectMany(b => b.Valeurs);
     Console.WriteLine($"\n Toutes les valeurs à plat ({toutesLesValeurs.Count()}) : {string.Join(", ", toutesLesValeurs)}");
 
-    // resultSelector par paires (prénom, valeur)
+// resultSelector par paires (prénom, valeur)
     var paires = bulletins.SelectMany(
         b => b.Valeurs,
         (bulletin, valeur) => (bulletin.Prenom, Valeur: valeur)
@@ -282,18 +268,19 @@ var releve = notes
 
 
     Console.WriteLine("\n=== Classe Promo (LINQ) ===");
-
+    //Instanciation promo
     var promo = new Promo("ING3", notes);
-    Console.WriteLine($"Promo {promo.Nom} | Moyenne générale : {promo.MoyenneGenerale():F2} | Major : {promo.Major() ?? "aucun"}");
-    Console.WriteLine($"Moyenne d'un absent (Margaret) : {promo.Moyenne("Margaret"):F2}");
-
+    //Moyenne et major
+    Console.WriteLine($"Promo {promo.Nom} | Moyenne : {promo.MoyenneGenerale():F2} | Major : {promo.Major() ?? "aucun"}");
+    //étudiant sans note
+    Console.WriteLine($"Moyenne d'un absent : {promo.Moyenne("Margaret"):F2}");
+    //Relevé complet de la promo
     Console.WriteLine("\nRelevé :");
     foreach (var ligne in promo.Releve())
         Console.WriteLine($"  {ligne}");
-
+    //Compte des admis par matière
     Console.WriteLine("\nAdmis par matière :");
     foreach (var (matiere, nb) in promo.NbAdmisParMatiere())
         Console.WriteLine($"  {matiere,-7} : {nb}");
-
     }
 }

@@ -10,17 +10,17 @@ public class Promo(string nom, IEnumerable<Note> notes)
     public IEnumerable<string> Etudiants() =>
         _notes.Select(n => n.Prenom).Distinct();
 
-    // Moyenne pondérée, 0 si aucune note
+    // Moyenne pondérée & 0 si pas de notes
     public double Moyenne(string prenom) =>
         _notes.Where(n => n.Prenom == prenom).ToList() is { Count: > 0 } ns
             ? ns.Sum(n => n.Valeur * n.Coef) / ns.Sum(n => n.Coef)
             : 0;
 
-    // Moyenne des moyennes des étudiants (0 si promo vide)
+    // Moyenne de la promo
     public double MoyenneGenerale() =>
         Etudiants().Select(Moyenne).DefaultIfEmpty(0).Average();
 
-    // Prénom du major, null si promo vide
+    // Prénom du major
     public string? Major() =>
         Classement().Select(c => c.Prenom).FirstOrDefault();
 
@@ -40,13 +40,13 @@ public class Promo(string nom, IEnumerable<Note> notes)
     public IEnumerable<string> Releve() =>
         Classement().Select((c, i) => $"{i + 1}. {c.Prenom} {c.Moyenne:F2} {Mention(c.Moyenne)}");
 
-    // Réutilise ta méthode de la séance 1 (ou appelle Ecole.Etudiant.Mention si elle est public static)
+    //attribue une mention en fonction de la moyenne
     private static string Mention(double moyenne) => moyenne switch
     {
-        >= 16 => "Très bien",
+        >= 16 => "Tres bien",
         >= 14 => "Bien",
         >= 12 => "Assez bien",
         >= 10 => "Passable",
-        _ => "Ajourné"
+        _ => "Non admis"
     };
 }

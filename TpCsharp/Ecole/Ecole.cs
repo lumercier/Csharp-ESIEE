@@ -3,7 +3,7 @@ namespace Ecole;
 public static class exoEcole
 {
     public static void Lancer()
-    {
+    {   //CREATION DE LA PROMO
         var promo = new Promo("ING3 Info");
 
         var ada = new Etudiant("Lovelace", "Ada", 4);

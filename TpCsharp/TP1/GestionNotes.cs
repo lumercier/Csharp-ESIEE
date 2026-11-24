@@ -3,7 +3,7 @@ namespace TP1;
 public static class GestionNotes
 {
     public static void Lancer()
-    {        
+    {   //initialisation du dictionnaire
         Dictionary<string, List<double>> dico = new()
         {
             ["Lucas"] = [14.5, 16, 15],
@@ -13,22 +13,22 @@ public static class GestionNotes
 
         // Ajout d'une note
         dico["Lucas"].Add(18);
-
+        //Parcours le dictionnaire
         foreach (var (nom, notes) in dico)
         {
             double somme = 0;
             double min = notes[0];
             double max = notes[0];
-
+        //Calculs du nombre de notes
             foreach (double note in notes)
             {
-                somme += note;
+                somme += note; //Somme des notes
                 if (note < min)
                     min = note;
                 if (note > max)
                     max = note;
             }
-
+        //Calculs de la moyenne
             double moyenne = somme / notes.Count;
             
             // AFFICHAGE
@@ -39,34 +39,15 @@ public static class GestionNotes
             Console.WriteLine($"Mention : {Mention(moyenne)}");
             Console.WriteLine("");
         }
-
-        Console.WriteLine("=== TESTS ===");
-        object?[] valeursTest = [42, 7, "", "Bonjour", dico["Lucas"], null];
-
-        foreach (object? valeur in valeursTest)
-        {
-            Console.WriteLine($"{valeur ?? "null"} -> {Decrire(valeur)}");
-        }
     }
-
+    //retourne une mention par rapport à la moyenne
     public static string Mention(double moyenne) => moyenne switch
     {
         < 0 or > 20 => throw new ArgumentOutOfRangeException(nameof(moyenne), "La moyenne doit être comprise entre 0 et 20."),
-        >= 16 => "Très bien",
+        >= 16 => "Tres bien",
         >= 14 => "Bien",
         >= 12 => "Assez bien",
         >= 10 => "Passable",
-        _ => "Ajourné"
-    };
-
-    public static string Decrire(object? o) => o switch
-    {
-        null => "null",
-        int n when n % 2 == 0 => "entier pair",
-        int => "entier impair",
-        string { Length: 0 } => "chaîne vide",
-        string s => $"chaîne de {s.Length} caractères",
-        List<double> liste => $"liste de {liste.Count} éléments",
-        _ => "autre"
+        _ => "Non admis"
     };
 }

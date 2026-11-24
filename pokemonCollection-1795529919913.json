@@ -1,0 +1,18 @@
+[
+  {
+    "color": "default",
+    "type": "jigglypuff",
+    "size": "medium",
+    "name": "Nanna",
+    "generation": "gen1",
+    "originalSpriteSize": 64
+  },
+  {
+    "color": "default",
+    "type": "jigglypuff",
+    "size": "large",
+    "name": "Lucas",
+    "generation": "gen1",
+    "originalSpriteSize": 64
+  }
+]

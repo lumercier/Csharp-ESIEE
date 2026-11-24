@@ -6,10 +6,10 @@ public static class Linq
 {
     public static void Lancer()
     {
-        var (notes, inscrits) = ChargerDonnees();
-
+        var (notes, inscrits) = ChargerDonnees(); //Chargement de notes.csv
+        //Compte des notes et des élèves inscrits
         Console.WriteLine($"{notes.Count} notes valides et {inscrits.Count} inscrits.\n");
-
+        //filtrage générique
         List<Note> notesAlgo = Filtrer(notes, EstEnAlgo);
         List<Note> notesEnDessousMoyenne = Filtrer(notes, n => n.Valeur < 10);
 
@@ -73,7 +73,7 @@ public static class Linq
 
 
 //METHODES
-
+    //PARSING SI LIGNE INVALIDE
     private static Note? Parser(string ligne)
     {
         var c = ligne.Split(',');
@@ -90,7 +90,7 @@ public static class Linq
     {
         return n => n.Valeur > seuil;
     }
-
+    //CHARGEMENT DE NOTES .CSV
     public static (List<Note> Notes, List<Inscrit> Inscrits) ChargerDonnees()
     {
         List<Note> notes = File.ReadLines("notes.csv")
